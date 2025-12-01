@@ -1,18 +1,20 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
+import { BlogContent } from 'app/components/blog-content'
 
 export async function generateStaticParams() {
-  let posts = getBlogPosts()
+  let posts = await getBlogPosts()
 
   return posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-export function generateMetadata({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  let posts = await getBlogPosts()
+  let post = posts.find((post) => post.slug === slug)
   if (!post) {
     return
   }
@@ -51,15 +53,17 @@ export function generateMetadata({ params }) {
   }
 }
 
-export default function Blog({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
+export default async function Blog({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  let posts = await getBlogPosts()
+  let post = posts.find((post) => post.slug === slug)
 
   if (!post) {
     notFound()
   }
 
   return (
-    <section>
+    <>
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -72,27 +76,91 @@ export default function Blog({ params }) {
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
+              ? post.metadata.image
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
             url: `${baseUrl}/blog/${post.slug}`,
             author: {
               '@type': 'Person',
-              name: 'My Portfolio',
+              name: post.author?.name || 'Mir Tauhidul Islam',
             },
           }),
         }}
       />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
+      
+      <article>
+      
+      {/* Cover Image */}
+      {post.coverImage && (
+        <div className="w-full mb-6 sm:mb-8 rounded-lg h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px]">
+          <img 
+            src={post.coverImage} 
+            alt={post.metadata.title}
+            className="w-full h-full object-cover rounded-lg"
+          />
+        </div>
+      )}
+
+      {/* Title */}
+      <h1 className="title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-4 sm:mb-6 leading-[1.15] sm:leading-[1.2] text-white break-words">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
+
+      {/* Subtitle/Brief */}
+      {post.metadata.summary && post.metadata.summary.trim() && (
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#909090] mb-0 leading-relaxed break-words tracking-normal">
+          {post.metadata.summary}
         </p>
-      </div>
-      <article className="prose">
-        <CustomMDX source={post.content} />
+      )}
+
+      {/* Author & Meta Information */}
+      {post.author && (
+        <div className="flex items-center gap-2.5 sm:gap-3 md:gap-4 mt-6 sm:mt-8 md:mt-10 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-neutral-800">
+          {post.author.profilePicture && (
+            <img 
+              src={post.author.profilePicture} 
+              alt={post.author.name}
+              className="w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full ring-1 sm:ring-2 ring-neutral-800 grayscale flex-shrink-0 object-cover"
+            />
+          )}
+          <div className="flex-1 min-w-0">
+            <p className="text-sm sm:text-base font-semibold text-white mb-0.5 sm:mb-1 leading-tight">
+              {post.author.name}
+            </p>
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-[#909090] leading-tight">
+              <time dateTime={post.metadata.publishedAt}>
+                {formatDate(post.metadata.publishedAt)}
+              </time>
+              {post.readTimeInMinutes > 0 && (
+                <>
+                  <span className="text-neutral-700">•</span>
+                  <span>{post.readTimeInMinutes} min read</span>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Article Content */}
+      <BlogContent content={post.content} />
+
+      {/* Tags at Bottom */}
+      {post.tags && post.tags.length > 0 && (
+        <div className="pt-4 sm:pt-6 border-t border-neutral-800">
+          <h3 className="text-xs sm:text-sm font-semibold text-white mb-3 sm:mb-4 uppercase tracking-wider">Topics</h3>
+          <div className="flex flex-wrap gap-2 sm:gap-3">
+            {post.tags.map((tag: any) => (
+              <span 
+                key={tag.slug}
+                className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium bg-neutral-900 text-[#909090] rounded-lg border border-neutral-800 hover:border-neutral-700 hover:bg-neutral-800 transition-all"
+              >
+                #{tag.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
       </article>
-    </section>
+    </>
   )
 }

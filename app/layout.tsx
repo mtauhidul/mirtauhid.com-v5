@@ -28,15 +28,15 @@ const martel = Martel({
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Next.js Portfolio Starter",
-    template: "%s | Next.js Portfolio Starter",
+    default: "Mir Tauhidul Islam - Frontend Developer",
+    template: "%s | Mir Tauhidul Islam",
   },
-  description: "This is my portfolio.",
+  description: "Frontend Developer specializing in React and Next.js. Building modern web applications with TypeScript and Tailwind CSS. Based in Dhaka, Bangladesh.",
   openGraph: {
-    title: "My Portfolio",
-    description: "This is my portfolio.",
+    title: "Mir Tauhidul Islam - Frontend Developer",
+    description: "Frontend Developer specializing in React and Next.js. Building modern web applications with TypeScript and Tailwind CSS.",
     url: baseUrl,
-    siteName: "My Portfolio",
+    siteName: "Mir Tauhidul Islam",
     locale: "en_US",
     type: "website",
   },
@@ -66,8 +66,8 @@ export default function RootLayout({
       className={cx(workSans.variable, cutive.variable, martel.variable)}
       style={{ backgroundColor: "#0a0a0a", color: "#FFFFFF" }}
     >
-      <body className="antialiased max-w-xl mx-4 mt-2 lg:mx-auto flex flex-col min-h-screen">
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+      <body className="antialiased max-w-xl mx-auto mt-2 px-4 sm:px-6 lg:px-0 flex flex-col min-h-screen">
+        <main className="flex-auto min-w-0 mt-6 flex flex-col">
           <Navbar />
           {children}
         </main>

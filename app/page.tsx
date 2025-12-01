@@ -9,8 +9,7 @@ export default function Page() {
       <Hero />
       <About />
       <Divider />
-      {/* <Work />
-      <Divider /> */}
+
       <Latest />
     </section>
   );

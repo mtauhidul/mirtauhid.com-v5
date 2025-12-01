@@ -24,7 +24,9 @@ export function Navbar() {
         >
           <div className="flex flex-row space-x-0 pr-4 md:pr-10">
             {Object.entries(navItems).map(([path, { name }]) => {
-              const isActive = pathname === path;
+              const isActive = path === "/" 
+                ? pathname === path 
+                : pathname.startsWith(path);
               const mobileName = path === "/" ? "About" : name;
               return (
                 <Link

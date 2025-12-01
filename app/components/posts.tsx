@@ -1,8 +1,8 @@
 import { formatDate, getBlogPosts } from "app/blog/utils";
 import Link from "next/link";
 
-export function BlogPosts() {
-  let allBlogs = getBlogPosts();
+export async function BlogPosts() {
+  let allBlogs = await getBlogPosts();
 
   return (
     <div className="min-h-[50vh]">

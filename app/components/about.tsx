@@ -2,13 +2,19 @@ export function About() {
   return (
     <>
       <p className="mb-4  leading-7 text-neutral-400 font-semibold">
-        {`Worked on more than a hundred small to medium projects and regularly studying top-notch developers worldwide, and watching their work has given me the confidence to build any UI using React. Even if I do not have a design, a simple idea or inspiration is enough.`}
+        {`Hi—I'm Tauhid, a Front-End Developer and wanna be an engineer, based in Dhaka, Bangladesh.`}
       </p>
       <p className="mb-4  leading-7 text-neutral-400  font-semibold">
-        {`My passion for computer science and my interest in problem-solving brought me here, where JavaScript is my main tool. I think about JavaScript as more than just code, from the superficial layer to what happens under the hood. I believe every problem has a solution; we just have to construct it with proper planning and logic.`}
+        {`Since 2021, I have been working on hundreds of small to medium outsourced global projects. And since 2023, I have been working as a remote, part-time front-end developer at a US-based health tech company, where I work 16 hours a week.`}
       </p>
       <p className="mb-4  leading-7 text-neutral-400 font-semibold">
-        {`I can fast learn and loves to dive deeper, which helps me to stay updated with the latest trends and technologies, but more than that, I value understanding at least in one important area. That is why I am trying to become a T-shaped developer.`}
+        {`As a self-taught developer, the journey wasn’t easy for a Statistics and Data Science graduate. I learned from mistakes, errors, and other people’s code. I’m passionate about JavaScript, and my main tool is React. My interest in computer science and solving real-world problems brought me here. I’m still learning and evolving.`}
+      </p>
+      <p className="mb-4  leading-7 text-neutral-400 font-semibold">
+        {`Exploring and experimenting with AI has made me a bit slower at coding nowadays, but it has also given me a founder-like mindset. Now I can synthesise small to medium projects from planning, architecting, developing, testing, to deploying, on my own. It might start from an idea, inspiration, or even a design example.`}
+      </p>
+      <p className="mb-4  leading-7 text-neutral-400 font-semibold">
+        {`Now I’m looking for more problems to solve, opportunities to work with great people, and chances to deliver meaningful work. I’m also learning both new and old things, discovering more, and going deeper into fundamentals to make my foundation stronger. I believe that as our knowledge expands, the circle of the unknown grows even larger. It gives a feeling that I know nothing, but that’s good. It keeps the thirst alive.`}
       </p>
     </>
   );

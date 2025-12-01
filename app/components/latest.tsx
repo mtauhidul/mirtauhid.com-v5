@@ -1,12 +1,12 @@
 import { formatDate, getBlogPosts } from "app/blog/utils";
 import Link from "next/link";
 
-export function Latest() {
-  let allBlogs = getBlogPosts();
+export async function Latest() {
+  let allBlogs = await getBlogPosts();
 
   return (
     <div className="my-8">
-      <h2 className="text-3xl mb-6">Latest Blogs</h2>
+      <h2 className="text-3xl mb-6">Latest Blog</h2>
       <div>
         {allBlogs
           .sort((a, b) => {
