@@ -39,6 +39,19 @@ export const metadata: Metadata = {
     siteName: "Mir Tauhidul Islam",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/logo/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Mir Tauhidul Islam - Frontend Developer",
+      },
+    ],
+  },
+  icons: {
+    icon: "/logo/favicon.png",
+    shortcut: "/logo/favicon.png",
+    apple: "/logo/favicon.png",
   },
   robots: {
     index: true,
@@ -66,7 +79,10 @@ export default function RootLayout({
       className={cx(workSans.variable, cutive.variable, martel.variable)}
       style={{ backgroundColor: "#0a0a0a", color: "#FFFFFF" }}
     >
-      <body className="antialiased max-w-xl mx-auto mt-2 px-4 sm:px-6 lg:px-0 flex flex-col min-h-screen">
+      <body 
+        className="antialiased max-w-xl mx-auto mt-2 px-4 sm:px-6 lg:px-0 flex flex-col min-h-screen"
+        suppressHydrationWarning
+      >
         <main className="flex-auto min-w-0 mt-6 flex flex-col">
           <Navbar />
           {children}

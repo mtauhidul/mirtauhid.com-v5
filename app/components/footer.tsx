@@ -53,14 +53,14 @@ export default function Footer() {
         </p>
         <a
           className="inline-flex items-center space-x-2 order-1 md:order-2"
-          href="mailto:mislam.tauhidul@gmail.com"
+          href="mailto:mir.tauhidul@protonmail.com"
         >
           <MailIcon
             size={18}
             className="text-neutral-600 dark:text-neutral-300 self-center flex-shrink-0"
           />
           <p className="text-sm leading-none break-all">
-            mislam.tauhidul@gmail.com
+            mir.tauhidul@protonmail.com
           </p>
         </a>
       </div>
