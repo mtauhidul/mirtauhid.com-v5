@@ -3,6 +3,9 @@ import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 import { BlogContent } from 'app/components/blog-content'
 
+// Revalidate every 30 minutes
+export const revalidate = 1800;
+
 export async function generateStaticParams() {
   let posts = await getBlogPosts()
 

@@ -1,6 +1,15 @@
 import { GraphQLClient } from "graphql-request";
 
-const client = new GraphQLClient("https://gql.hashnode.com");
+const client = new GraphQLClient("https://gql.hashnode.com", {
+  // Disable caching for fresh data in production
+  fetch: (url, options) => {
+    return fetch(url, {
+      ...options,
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+  }
+});
 
 const GET_POSTS = `
   query GetPosts($host: String!) {

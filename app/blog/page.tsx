@@ -5,6 +5,9 @@ export const metadata = {
   description: "Read my blog.",
 };
 
+// Revalidate every 30 minutes
+export const revalidate = 1800;
+
 export default function Page() {
   return (
     <section>
