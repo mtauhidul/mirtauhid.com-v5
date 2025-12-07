@@ -1,6 +1,8 @@
 import { getBlogPosts } from 'app/blog/utils'
 
 export const baseUrl = 'https://mirtuhid.com'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function sitemap() {
   let posts = await getBlogPosts()
