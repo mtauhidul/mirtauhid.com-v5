@@ -1,9 +1,5 @@
 import { getHashnodePosts } from '../../lib/hashnode'
 
-// Ensure fresh data in production
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export async function getBlogPosts() {
   const hashnodePosts = await getHashnodePosts()
   const formattedHashnodePosts = hashnodePosts.map(post => ({

@@ -3,16 +3,10 @@ import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 import { BlogContent } from 'app/components/blog-content'
 
-// Revalidate every 30 minutes
-export const revalidate = 1800;
-
-export async function generateStaticParams() {
-  let posts = await getBlogPosts()
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
-}
+// Force dynamic rendering - fetch fresh data on every request
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

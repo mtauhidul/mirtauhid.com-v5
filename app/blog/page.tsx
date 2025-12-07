@@ -5,8 +5,9 @@ export const metadata = {
   description: "Read my blog.",
 };
 
-// Revalidate every 30 minutes
-export const revalidate = 1800;
+// Force dynamic rendering - fetch fresh data on every request
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default function Page() {
   return (
