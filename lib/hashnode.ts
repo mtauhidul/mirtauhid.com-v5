@@ -1,15 +1,9 @@
-import { GraphQLClient } from "graphql-request";
+const HASHNODE_API = "https://gql.hashnode.com";
 
-const client = new GraphQLClient("https://gql.hashnode.com", {
-  // Disable caching for fresh data in production
-  fetch: (url, options) => {
-    return fetch(url, {
-      ...options,
-      cache: 'no-store',
-      next: { revalidate: 0 }
-    });
-  }
-});
+// Force no caching by adding timestamp to requests
+function addCacheBuster(query: string) {
+  return query + `\n# Cache buster: ${Date.now()}`;
+}
 
 const GET_POSTS = `
   query GetPosts($host: String!) {
@@ -86,7 +80,23 @@ export async function getHashnodePosts() {
   }
 
   try {
-    const data: any = await client.request(GET_POSTS, { host });
+    const response = await fetch(HASHNODE_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'X-Cache-Bust': Date.now().toString()
+      },
+      body: JSON.stringify({
+        query: addCacheBuster(GET_POSTS),
+        variables: { host }
+      }),
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+
+    const { data } = await response.json();
     console.log("Hashnode API response:", JSON.stringify(data, null, 2));
     
     if (!data?.publication?.posts?.edges) {
@@ -123,7 +133,23 @@ export async function getHashnodePost(slug: string) {
   }
 
   try {
-    const data: any = await client.request(GET_POST, { host, slug });
+    const response = await fetch(HASHNODE_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'X-Cache-Bust': Date.now().toString()
+      },
+      body: JSON.stringify({
+        query: addCacheBuster(GET_POST),
+        variables: { host, slug }
+      }),
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+
+    const { data } = await response.json();
     
     if (!data?.publication?.post) {
       return null;
