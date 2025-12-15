@@ -6,7 +6,7 @@ export function Navbar() {
           className="flex flex-row items-center justify-between relative px-0 pb-0 fade"
           id="nav"
         >
-          <div className="flex items-center gap-2 py-1 px-2 m-1">
+          <a href="/" className="flex items-center gap-2 py-1 px-2 m-1">
             <div className="border-l-2 border-neutral-900 dark:border-neutral-100 h-[34px]"></div>
             <div className="flex flex-col gap-1 h-[34px] justify-between">
               <span className="text-[15px] font-bold text-neutral-900 dark:text-neutral-100 tracking-tight leading-none mt-1">
@@ -16,7 +16,7 @@ export function Navbar() {
                 Tauhid
               </span>
             </div>
-          </div>
+          </a>
 
           <a
             href="https://mirtauhid.notion.site/MIR-TAUHIDUL-ISLAM-2b5304a80259802ba7d3d1fa31964b05"
